@@ -2,6 +2,7 @@ package com.codeup.weywotspringblog.models;
 // This is a POJO ("Plain Old Java Object")
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="coffees")
@@ -21,6 +22,12 @@ public class Coffee {
 
     @ManyToOne
     private Supplier supplier;
+
+    @ManyToMany(mappedBy = "coffeeList")
+    private List<Customer> customers;
+
+
+//    Getters and Setters
 
     public String getRoast() {
         return roast;
@@ -62,6 +69,8 @@ public class Coffee {
         this.supplier = supplier;
     }
 
+
+//    Constructors
     public Coffee() {
     }
 
