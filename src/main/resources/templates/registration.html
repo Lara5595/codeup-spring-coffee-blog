@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Registration</title>
+</head>
+<body>
+<h2>Register for our coffee site</h2>
+<form action="/coffee/customer/new" method="post">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name"><br><br>
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email"><br><br>
+  <input type="submit" value="Register">
+</form>
+</body>
+</html>

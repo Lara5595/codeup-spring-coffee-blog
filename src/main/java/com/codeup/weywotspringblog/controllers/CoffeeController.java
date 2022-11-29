@@ -1,8 +1,10 @@
 package com.codeup.weywotspringblog.controllers;
 
 import com.codeup.weywotspringblog.models.Coffee;
+import com.codeup.weywotspringblog.models.Customer;
 import com.codeup.weywotspringblog.models.Supplier;
 import com.codeup.weywotspringblog.repositories.CoffeeRepository;
+import com.codeup.weywotspringblog.repositories.CustomerRepository;
 import com.codeup.weywotspringblog.repositories.SupplierRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +20,12 @@ public class CoffeeController {
     private final CoffeeRepository coffeeDao;
     private final SupplierRepository suppliersDao;
 
-    public CoffeeController(CoffeeRepository coffeeDao, SupplierRepository suppliersDao){
+    private final CustomerRepository customersDao;
+
+    public CoffeeController(CoffeeRepository coffeeDao, SupplierRepository suppliersDao, CustomerRepository customersDao){
         this.coffeeDao = coffeeDao;
         this.suppliersDao = suppliersDao;
+        this.customersDao = customersDao;
     }
 
     @GetMapping
@@ -81,4 +86,29 @@ public class CoffeeController {
         suppliersDao.save(supplier);
         return "redirect:/coffee/suppliers";
     }
+
+
+
+
+    @GetMapping("/register")
+    public String showRegistrationForm(){
+        return "/registration";
+    }
+
+    @PostMapping("/customer/new")
+    public String registerCustomer(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email){
+        customersDao.save(new Customer(name,email));
+        return "redirect:/coffee";
+    }
+
+    @PostMapping("/customer/{customerId}/favorite/{coffeeId}")
+    public String favoriteCoffee(@PathVariable long customerId, @PathVariable long coffeeId){
+        Customer customer = customersDao.findById(customerId);
+        List<Coffee> favorites = customer.getCoffeeList();
+        favorites.add(coffeeDao.findById(coffeeId));
+        customer.setCoffeeList(favorites);
+        customersDao.save(customer);
+        return "redirect:/coffee";
+    }
+
 }
