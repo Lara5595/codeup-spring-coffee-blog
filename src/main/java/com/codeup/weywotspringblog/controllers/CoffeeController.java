@@ -51,18 +51,34 @@ public class CoffeeController {
         return "all-coffees";
     }
 
+//    @GetMapping("/new")
+//    public String addCoffeeForm(Model model)
+//    {
+//        List<Supplier> suppliers = suppliersDao.findAll();
+//        model.addAttribute("suppliers", suppliers);
+//        return "create-coffee";
+//    }
+
     @GetMapping("/new")
     public String addCoffeeForm(Model model)
     {
         List<Supplier> suppliers = suppliersDao.findAll();
         model.addAttribute("suppliers", suppliers);
+        model.addAttribute("coffee", new Coffee());
         return "create-coffee";
     }
 
+//    @PostMapping("/new")
+//    public String addCoffee(@RequestParam(name="roast") String roast, @RequestParam(name="origin") String origin, @RequestParam(name="brand") String brand, @RequestParam(name="supplier") long id){
+//        Supplier supplier = suppliersDao.findById(id);
+//        Coffee coffee = new Coffee(roast, origin, brand, supplier);
+//        coffeeDao.save(coffee);
+//        return "redirect:/coffee/all-coffees";
+//    }
+
+//    Refactor the top one ^ with form modle Binding refactor code on create coffeee for this to work
     @PostMapping("/new")
-    public String addCoffee(@RequestParam(name="roast") String roast, @RequestParam(name="origin") String origin, @RequestParam(name="brand") String brand, @RequestParam(name="supplier") long id){
-        Supplier supplier = suppliersDao.findById(id);
-        Coffee coffee = new Coffee(roast, origin, brand, supplier);
+    public String addCoffee(@ModelAttribute Coffee coffee){
         coffeeDao.save(coffee);
         return "redirect:/coffee/all-coffees";
     }
@@ -77,16 +93,24 @@ public class CoffeeController {
     public String showSuppliersForm(Model model){
         List<Supplier> suppliers = suppliersDao.findAll();
         model.addAttribute("suppliers", suppliers);
+//        When you do model binding you need to do a new model with empty constructer
+        model.addAttribute("supplier", new Supplier());
         return "/suppliers";
     }
 
+//    @PostMapping("/suppliers")
+//    public String insertSupplier(@RequestParam(name="name") String name){
+//        Supplier supplier = new Supplier(name);
+//        suppliersDao.save(supplier);
+//        return "redirect:/coffee/suppliers";
+//    }
+
+    // Refactor for model binding
     @PostMapping("/suppliers")
-    public String insertSupplier(@RequestParam(name="name") String name){
-        Supplier supplier = new Supplier(name);
+    public String insertSupplier(@ModelAttribute Supplier supplier){
         suppliersDao.save(supplier);
         return "redirect:/coffee/suppliers";
     }
-
 
 
 

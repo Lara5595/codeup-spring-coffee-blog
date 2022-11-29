@@ -6,9 +6,9 @@
 </head>
 <body>
 <h2>Enter a supplier:</h2>
-<form action="/coffee/suppliers" method="post">
+<form action="/coffee/suppliers" method="post" th:object="${supplier}">
   <label for="name">Name:</label>
-  <input type="text" name="name" id="name">
+  <input type="text" name="name" id="name" th:field="*{name}">
   <input type="submit" value="Enter">
 </form>
 

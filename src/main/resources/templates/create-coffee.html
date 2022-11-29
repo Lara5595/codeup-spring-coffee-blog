@@ -7,14 +7,14 @@
 <body>
 <fieldset>
     <legend>Add a Coffee</legend>
-    <form action="/coffee/new" method="post">
+    <form action="/coffee/new" method="post" th:object="${coffee}">
         <label for="brand">Brand:</label>
-        <input type="text" id="brand" name="brand"><br>
+        <input type="text" id="brand" name="brand" th:field="*{brand}"><br>
         <label for="roast">Roast:</label>
-        <input type="text" id="roast" name="roast"><br>
+        <input type="text" id="roast" name="roast" th:field="*{roast}"><br>
         <label for="origin">Origin:</label>
-        <input type="text" id="origin" name="origin"><br>
-        <select name="supplier" id="supplier">
+        <input type="text" id="origin" name="origin" th:field="*{origin}"><br>
+        <select name="supplier" id="supplier" th:field="*{supplier}">
             <option
                     th:each="supplier : ${suppliers}"
                     th:value="${supplier.id}"
