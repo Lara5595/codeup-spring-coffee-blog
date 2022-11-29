@@ -11,12 +11,18 @@
   <input type="text" name="name" id="name">
   <input type="submit" value="Enter">
 </form>
+
 <div th:if="${suppliers.size() > 0}">
-  <h2>List of suppliers:</h2>
+  <h2>List of suppliers: </h2>
   <ul>
-    <li th:each="supplier : ${suppliers}"
-        th:text="${supplier.name}"></li>
+    <li th:each="supplier : ${suppliers}">
+      <p th:text="${supplier.name}"></p>
+      <ul>
+        <li th:each="coffee : ${supplier.coffees}">
+          <p th:text="|${coffee.brand} ${coffee.origin} ${coffee.roast}|"></p>
+        </li>
+      </ul>
+    </li>
+
   </ul>
 </div>
-</body>
-</html>

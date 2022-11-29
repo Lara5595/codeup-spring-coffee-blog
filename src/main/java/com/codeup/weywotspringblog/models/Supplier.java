@@ -33,6 +33,15 @@ public class Supplier {
         this.name = name;
     }
 
+
+    public List<Coffee> getCoffees() {
+        return coffees;
+    }
+
+    public void setCoffees(List<Coffee> coffees) {
+        this.coffees = coffees;
+    }
+
     public Supplier() {
     }
 
@@ -44,4 +53,13 @@ public class Supplier {
         this.id = id;
         this.name = name;
     }
+
+
+    public Supplier(long id, String name, List<Coffee> coffees) {
+        this.id = id;
+        this.name = name;
+        this.coffees = coffees;
+    }
+
+
 }
