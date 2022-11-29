@@ -6,12 +6,14 @@
 </head>
 <body>
 <h2>Register for our coffee site</h2>
-<form action="/coffee/customer/new" method="post">
+<form action="/coffee/customer/new" method="post" th:object="${customer}">
   <label for="name">Name:</label>
-  <input type="text" name="name" id="name"><br><br>
+  <input type="text" th:field="*{name}" name="name" id="name"><br><br>
   <label for="email">Email</label>
-  <input type="email" name="email" id="email"><br><br>
+  <input type="email" th:field="*{email}" name="email" id="email"><br><br>
   <input type="submit" value="Register">
 </form>
 </body>
 </html>
+
+<!--We refactor the code so we can use modle binding which takes of the @RequestParam for the controller methods-->
